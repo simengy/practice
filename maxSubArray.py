@@ -1,7 +1,6 @@
 
 # O(N^2) complexity
 def maxSubArray(array):
-
     start = 0
     end = start
     max = 0
@@ -20,7 +19,6 @@ def maxSubArray(array):
 
 # O(N)
 def maxSubArray_2(array):
-
     maxend = array[0]
     maxsub = array[0]
     start = 0
@@ -42,7 +40,6 @@ def maxSubArray_2(array):
 
 
 def add(arr):
-
     sum = 0
     for i in arr:
         sum += i

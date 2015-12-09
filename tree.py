@@ -119,7 +119,6 @@ def levelPrint(tree, nodes, level):
 
 
 def sortedListToTree(List):
-    
     test = None
 
     while List:
@@ -134,8 +133,8 @@ def sortedListToTree(List):
 
     return test
     
-def inorder(tree):
 
+def inorder(tree):
     lst = []
 
     if tree:
@@ -153,8 +152,7 @@ def inorder(tree):
     return lst
 
 
-def leastCommonAncestor(tree, node1, node2):
-    
+def leastCommonAncestor(tree, node1, node2):    
     curr = tree
     
     while curr:
@@ -166,6 +164,97 @@ def leastCommonAncestor(tree, node1, node2):
             continue
         else:
             return curr
+
+
+def bfs(tree):
+    '''
+    this is a mimic queue which leverage type=list
+    the operation efficiency is low due to the storage 
+    property of the sequence contatiners.
+    '''
+    queue = []
+
+    queue.append(tree)
+
+    while len(queue) > 0:
+        head = queue.pop(0)
+
+        if head:
+            print 'node', head.value
+            queue.append(head.left)
+            queue.append(head.right)
+
+
+def copyGraph(graph):
+    queue = []
+    node_map = {}
+    
+    newhead = Tree(graph.value)
+    queue.append(graph)
+    node_map[graph] = newhead # shallow copy of an object
+    
+    while queue: 
+        head = queue.pop(0)
+        # take care of following cases:
+        # head or its child nodes are empty
+        try:
+            if head.left not in node_map:
+                tmp = Tree(head.left.value)
+                node_map[head.left] = tmp
+                node_map[head].left = tmp
+            else:
+                node_map[head].left = node_map[head.left]
+            queue.append(head.left)
+        except:
+            pass
+        try:
+            if head.right not in node_map:
+                tmp = Tree(head.right.value)
+                node_map[head.right] = tmp
+                node_map[head].right = tmp
+            else:
+                node_map[head].right = node_map[head.right]
+            queue.append(head.right)
+        except:
+            pass
+
+    return newhead
+
+def dfs_copyGraph(graph):
+    newhead = Tree(graph.value)
+    node_map={}
+    node_map[graph] = newhead
+
+    def copyNode(_map, _node):
+        if _node == None:
+            return _map
+        try:
+            if _node.left not in _map:
+                tmp = Tree(_node.left.value)
+                _map[_node].left = tmp
+                _map[_node.left] = tmp
+            else:
+                _map[_node].left = _map[_node.left]
+            copyNode(_map, _node.left)
+        except:
+            pass
+
+        try:
+            if _node.right not in _map:
+                tmp = Tree(_node.right.value)
+                _map[_node].right = tmp
+                _map[_node.right] = tmp
+            else:
+                _map[_node].left = _map[_node.left]
+            copyNode(_map, _node.right)
+        except:
+            pass
+        return _map
+
+    copyNode(node_map, graph)
+    return newhead
+
+
 
 
 array = [32, 21, 43, 25, 72, 11, 13, 29, 27]
@@ -196,10 +285,15 @@ print sum(array)
 print totalsum(testTree)
 print 'PATHSUM = ', pathsum(testTree, 75)
 print max_depth(testTree)
+'''
 
 # breadth first
 nodes = {}
-levelPrint(testTree, nodes, 1)
+levelPrint(test, nodes, 1)
 for key in nodes:
     print key, nodes[key]
-'''
+
+bfs(test)
+
+print 'BFS COPY GRAPH:\n', copyGraph(test).printNode()
+print 'DFS COPY GRAPH:\n', dfs_copyGraph(test).printNode()

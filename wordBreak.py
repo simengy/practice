@@ -1,24 +1,16 @@
-def wordbreak(string, dictionary, start):
-
-    if len(string) == start:
+def wordBreak(sentence, dictionary, head):
+   
+    if head == len(sentence):
         return True
-    
-    count = 0
-    for i in string[start:]:
-        
-        print start, i
-        count  = count + 1
-        end = start + count
 
-        temp = string[start:end]
-
-        if temp in dictionary:
-            return wordbreak(string, dictionary, end)
-        elif len(string) == end:
-            return False
+    for i in range(head+1, len(sentence)+1):
+        if sentence[head:i] in dictionary:
+            return wordBreak(sentence, dictionary, i)
+            
+    return False
 
 
-def wordbreak2(string, dictionary):
+def wordBreak2(string, dictionary):
 
     if len(string) == 0:
 
@@ -28,7 +20,7 @@ def wordbreak2(string, dictionary):
         
         if string[:i] in dictionary:
 
-            if wordbreak2(string[i:], dictionary):
+            if wordBreak2(string[i:], dictionary):
                 return True
             else:
                 return False
@@ -39,5 +31,5 @@ def wordbreak2(string, dictionary):
 if __name__ == "__main__":
 
     dictionary = ['syan', 'come', 'here', 'from']
-    print wordbreak('syancomfrom', dictionary, 0)
-    print wordbreak2('syancomfrom', dictionary)
+    print wordBreak('syancomefrom', dictionary, 0)
+    print wordBreak2('syancomefrom', dictionary)

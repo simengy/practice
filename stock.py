@@ -1,22 +1,20 @@
 # one-time sell and buy
-# Fix this: there is constraint that T_max > T_min
+# Fix this: there is a constraint that T_max > T_min
 def buysell1(stock):
+    maxProfit = 0
 
-    min = None
-    maxP = None
+    minT = None
+    maxT = None
 
     for i in xrange(len(stock)):
+        if minT is None or stock[minT] > stock[i]:
+            minT = i
 
+        if maxProfit < stock[i] - stock[minT] and i > minT:
+            maxProfit = stock[i] - stock[minT]
+            maxT = i
 
-        if min is None:
-            min = i
-        elif stock[min] > stock[i]:
-            min = i
-
-        if maxP < stock[i] - stock[min]:
-            maxP = stock[i] - stock[min]
-
-    return maxP, min
+    return maxProfit, minT
 
 
 def buysell2(stock):
@@ -36,8 +34,8 @@ def buysell2(stock):
 
     return profit
 
+
 def buysell3(stock):
-    
     min = None
     maxP = None
     oldMaxP = [0] * len(stock)
@@ -70,9 +68,9 @@ def buysell3(stock):
 
 stocks = [4,3,4,5,3,8,10,6,1,5,9,2] 
 print stocks
-print buysell1(stocks)
-print buysell2(stocks)
+print 'buysell 1:\n', buysell1(stocks)
+print 'buysell 2:\n', buysell2(stocks)
 
 stocks = [1,2,4,2,5,7,2,4,9] 
-print buysell3(stocks)
+print 'buysell 3:\n', buysell3(stocks)
 
