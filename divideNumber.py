@@ -1,5 +1,4 @@
 def divide(num1, num2):
-   
     div = 0
 
     if num2 == 0:

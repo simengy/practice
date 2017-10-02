@@ -21,7 +21,6 @@ def countPrime(n):
 
 
 def sieveCount(n):
-
     start = datetime.now()    
     A = [True] * (n - 1)
     

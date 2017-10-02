@@ -255,8 +255,6 @@ def dfs_copyGraph(graph):
     return newhead
 
 
-
-
 array = [32, 21, 43, 25, 72, 11, 13, 29, 27]
 
 lst = list(30)

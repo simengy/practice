@@ -1,0 +1,33 @@
+11. You have a stream of data coming in, in the format as the following:
+item_id, views, clicks, time
+1            100     10         2013-11-28
+1            1000   350       2013-11-29
+1            200     14         2013-11-30
+2            127     13         2013-12-1
+…
+
+The same id are consecutive. 
+
+Click through rate = clicks / views. 
+On every day, I want to output the item id when its click through rate is 
+larger than a given threshold. 
+For example, at day 1, item 1’s rate is 10/100=10%, day2, its (10+350)/(100
++1000)=0.32. day3 it is (10+350+14)/(100+1000+200)=0.28. 
+If my threshold is 0.3, then at day 1, I don’t output. On day2 I output. On
+day3, I don’t output.
+
+Solution:
+
+# Assume the table Name = A
+
+select A.item_id, A.time, sum(B.clicks) / sum(B.views) as rate
+FROM
+A
+inner join 
+(
+	select * from A
+) B
+on A.time >= B.time
+and A.item_id = B.item_id
+group by 1, 2
+having rate > 0.3

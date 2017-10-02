@@ -18,7 +18,7 @@ class solution:
         return newPath
 
 
-path = '/a/./b/../../c/'
-path = '/home/'
+path = '/a/./b/../c/'
+#path = '/home/'
 sol = solution()
-print sol.simplifyPath(path)
+print '/'.join(sol.simplifyPath(path))

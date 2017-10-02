@@ -1,5 +1,4 @@
 def wordBreak(sentence, dictionary, head):
-   
     if head == len(sentence):
         return True
 
@@ -11,9 +10,7 @@ def wordBreak(sentence, dictionary, head):
 
 
 def wordBreak2(string, dictionary):
-
     if len(string) == 0:
-
         return True
 
     for i in xrange(1, len(string)+1):
