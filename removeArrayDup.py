@@ -1,65 +1,63 @@
-def remove(array):
-
-    arrary = sorted(array)
+def removeDup(array):
     N = len(array)
+    if N <= 1:
+        return array
 
-    i = 1
-    while i < N:
+    temp = array[:1]
+    for i in xrange(1, N):
         try:
-            print i, len(array), array[i]
-            if array[i] == array[i-1]:
+            # print i, len(array), array[i]
+            if array[i] != array[i - 1]:
+                temp.append(array[i])
+        except Exception as e:
+            print e, i, len(array)
 
-                temp = array[:i-1]
-                temp.extend(array[i:])
-                print temp
-                array = temp[:]
-                i = i-1
-                N = N-1
-
-            i = i + 1
-        except:
-            print i, len(array)
-
-    
     return temp
 
 # Allow 2 duplicates at max
-def removeDup2(A):
 
-    A = sorted(A)
+
+def removeDup2(A):
     N = len(A)
 
     count = 1
-    i = 0
-    while i < N:
-        
-        if A[i] == A[i-1] and i != 1:
-            count += 1
-        else:
-            count = 1
+    j = 0
 
-        if count > 2:
-            print 'count', i, A[i], A[i+1]
-            for j in xrange(i,N-1):
-                A[j] = A[j+1]
+    for i in xrange(1, N):
 
-            i -= 1
-            N -= 1
-        
-        i += 1
-    
-    print A
-    return N, A
+        if A[j] != A[i]:
+            count = 0
+            j += 1
+            A[i], A[j] = A[j], A[i]
+        elif A[j] == A[j] and count <= 1:
+            j += 1
+            A[i], A[j] = A[j], A[i]
 
-    
+        count += 1
 
-array = list([0,1,1,2,3,3,3,4,5])
+    return A[:j + 1]
 
-print remove(array)
 
-array = list([0,1,1,2,3,3,3,4,4,4,4,5])
+def removeDup_inplace(A):
+    if len(A) <= 1:
+        return A
 
-print 'again\n',array
-N, temp = removeDup2(array)
-for i in xrange(N):
-    print temp[i]
+    j = 0
+
+    for i in xrange(1, len(A)):
+        if A[j] != A[i]:
+            j = j + 1
+            A[i], A[j] = A[j], A[i]
+
+    return A[:j + 1]
+
+
+array = list([0, 1, 1, 2, 3, 3, 3, 4, 5])
+print 'original:\n', array
+
+print 'extra list:\n', removeDup(array)
+print 'inplace:\n', removeDup_inplace(array)
+
+array = list([0, 1, 1, 2, 3, 3, 3, 4, 4, 4, 4, 5])
+print '\nOriginal of 2 dups at most :\n', array
+print removeDup2(array)

@@ -21,7 +21,7 @@ def spiral(n, mat, init, pos):
 if __name__ == '__main__':
     
     mat = []
-    n = 5
+    n = 3
 
     for i in range(n):
         row = []

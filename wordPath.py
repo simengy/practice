@@ -29,7 +29,8 @@ def path(word, maze, pos, row, col):
 
         next_row, next_col = lookup(
             word[pos + 1], maze, row, col, delta_row, delta_col)
-        #print next_row, next_col, row, col, delta_row, delta_col, word[pos + 1]
+        # print next_row, next_col, row, col, delta_row, delta_col, word[pos +
+        # 1]
 
         if next_row is not None:
             if path(word, maze, pos + 1, next_row, next_col):
@@ -59,7 +60,8 @@ def shortest_path(word, maze, pos, row, col):
     while(1):
         next_row, next_col = lookup(
             word[pos + 1], maze, row, col, delta_row, delta_col)
-        #print step, pos, next_row, next_col, row, col, delta_row, delta_col, word[pos + 1]
+        # print step, pos, next_row, next_col, row, col, delta_row, delta_col,
+        # word[pos + 1]
         if next_row is None:
             return step
         tmp = shortest_path(word, maze, pos + 1, next_row, next_col)

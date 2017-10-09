@@ -18,4 +18,4 @@ def combination(word, n):
 
 
 if __name__ == '__main__':
-    print combination('love', 2)
+    print combination('love', 3)
