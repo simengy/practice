@@ -1,8 +1,10 @@
 # Allow duplicate element
 def combinationSum(candidate, target):
-
-    if len(candidate) == 1 and target != candidate[0]:
+    if target == 0:
+        return [[], ]
+    elif len(candidate) == 1 and target != candidate[0]:
         return None
+
     if target < 0:
         return None
 
@@ -10,17 +12,17 @@ def combinationSum(candidate, target):
     sub = []
 
     for i in xrange(len(candidate)):
-
-        if candidate[i] < target:
+        if candidate[i] <= target:
             temp = combinationSum(candidate[i:], target - candidate[i])
+
             if temp:
                 for k in temp:
                     # print k
                     k.append(candidate[i])
                     sub.append(k)
 
-        elif candidate[i] == target:
-            sub.append([candidate[i], ])
+        # elif candidate[i] == target:
+            # sub.append([candidate[i], ])
 
     return sub
 
@@ -28,20 +30,23 @@ def combinationSum(candidate, target):
 
 
 def combinationSum2(candidate, target):
-
-    if len(candidate) == 1 and target != candidate[0]:
-        return None
-    if target < 0:
+    if target == 0:
+        return [[], ]
+    elif len(candidate) == 1 and target != candidate[0]:
         return None
 
     candidate = sorted(candidate)
     sub = []
+
+    if target < 0:
+        return None
+
     for i in xrange(len(candidate)):
         # repeating elements only use once
         if i != 0 and candidate[i] == candidate[i - 1]:
             continue
 
-        if candidate[i] < target:
+        if candidate[i] <= target:
             temp = combinationSum2(candidate[i + 1:], target - candidate[i])
             if temp:
                 for k in temp:
@@ -49,8 +54,8 @@ def combinationSum2(candidate, target):
                     k.append(candidate[i])
                     sub.append(k)
 
-        elif candidate[i] == target:
-            sub.append([candidate[i], ])
+        # elif candidate[i] == target:
+            #sub.append([candidate[i], ])
 
     return sub
 
